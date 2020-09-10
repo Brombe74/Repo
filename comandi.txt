@@ -1,0 +1,90 @@
+php bin/magento sample:data deploy
+		setup:update
+		indexer:reindex
+		cache:flush
+
+
+mysql -h mysqlhost -u root -psqladm
+
+eav_entity_type guardare entity_id o entity_table
+select * from eav_attribute where attribute_code='attributo';
+cercare la voce 'backend_type'
+catalog_product_entity_robanelbackendtype
+
+
+
+
+**DA FARE APPENA INIZI**
+make init-project
+make devtools-www-data
+
+**ATTIVA IL MODULO APPENA CREATO**
+php htdocs/bin/magento setup:upgrade
+
+**DA DENTRO IL CONTAINER**
+php htdocs tail -f var/log/exception.log
+
+
+**ROUTING** 
+
+file routes.xml ->Campus/Controller/etc/frontend/
+il .php -> Campus/Controller/possibili cartelle nel caso io voglia /feuirfj/fie e /action name (nome effettivo della pagina) 
+per lo stile il file Campus/Controller/view/frontend/layout/ cms_variecartelledeicontroller_nomedelactionname.xml 
+
+
+**Includere less**
+Campus/Controller/view/web/css/file.less
+nell-include mettere quel file .css
+
+Genera la roba statica
+php htdocs/bin/magento setup:static-content:deploy en_US -t Hevelop/campus -a frontend -f
+
+**COMANDO PER LUMA**
+rm -rf htdocs/pub/static/frontend/Magento/luma/en_US/Hevelop_Campus/css htdocs/var/view_preprocessed/pub/static/frontend/Magento/luma/en_US/Hevelop_Campus/css
+
+**COMANDO PER MAGENTO**
+rm -rf htdocs/pub/static/frontend/Hevelop/campus/en_US/Hevelop_Campus/css htdocs/var/view_preprocessed/pub/static/frontend/Hevelop/campus/en_US/Hevelop_Campus/css/
+
+**Cancella requirejs**
+rm pub/static/frontend/Hevelop/campus/en_US/requirejs-config.js 
+
+Magento usa i pattern MVC e MVVM
+M=Model 
+
+namespace serve a identificare il path delle classi per poter poi richiamare le classi 
+
+moduli creati in 2 posti:
+- app/code/CompanyName/ModuleName
+- vendor/vendor-name/module-name
+
+/Model/ResourceModel: serve al model le query 
+/Cron: contiene tutte le classi che cotengono azioni schedulate
+/Observer: contenute gli event listener (tipo trigger) e funzionano tramite dispatch 
+MAI MODIFICARE DATTI CON GLI OBSERVER, devono essere in modo da essere assincroni 
+/Plugin: implementano gli interceptor, intercettano i metodi pubblici e modificano input o output (before-around-after)$proced(): usa questo piuttosto che around va
+senza toccare il core di Magento
+
+di.xml: configura varie opzioni di dependency injection, tipo plugin, console command 
+module.xml: versione dek module e dipendenze da altri moduli
+config.xml: valori di default delle onfigurazioni della piattaforma
+crontab.xml: contiene i cron
+events.xml: configura gli observer, sta anche lei sotto etc/
+[area]/routes.xml: determina i controlelr, deve avere il proprio path e non sta sotto etc/
+
+/Block: contiene le funzioni di rendering, tipo metodi di mostrare info in file phtml 
+/Viewmodel: implementa la business logic necesasria per fornire ai template 
+/Controller: generano una classe che rispondono ad un certo URL
+/Helper: utile per piccoli e utili metodi riutilizzabili, pubblici in culo quindi meglio non usarli
+/Setup: classi che eseguono modifiche sul db, esempio gli installer (aggiungono content alle tabelle), ma da 2.3 gli installer sono inutili
+/Console: classi per i nuovi comandi 
+Dependency Injection: fornisce un sistema per iniettare delle classi all-interno di altre classi ed utilizzarne le funzionalita.
+Avviene anche compilando il file di.xml o con il namespace delle classi direttamente nel costruttore della classe che sto sviluppando.
+Magendo 2 istanziera- l'oggetto di quella classe, rendendo disponibili tutti i metodi pubblici della stessa
+
+                                                   
+
+
+
+
+
+
